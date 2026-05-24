@@ -17,7 +17,7 @@ def menuConta(nome, sobrenome, cpf, conta, senha, usuarios, transferencias):
                 aguardarLimpar()
             else:
                 print(f'Olá, {nome}\nSaldo: R${usuarios[conta]["saldo"]}\nEscolha uma opção para prosseguir:')
-                opcao = int(input('[1] Transferência\n[2] Saque\n[3] Depósito\n[4] Extrato\n[5] Sair'))
+                opcao = int(input('[1] Transferência\n[2] Saque\n[3] Depósito\n[4] Extrato\n[5] Sair\n'))
                 
                 if opcao == 1:
                     limpar()
