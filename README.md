@@ -1,4 +1,4 @@
-# Sistema bancário desenvolvido em Python totalmente no terminal. 💳
+# Sistema Bancário Simples Desenvolvido em Python 💳
 
 O objetivo do projeto foi praticar lógica de programação, modularização, autenticação de usuários e manipulação de dados utilizando Python.
 
