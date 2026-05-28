@@ -68,12 +68,8 @@ BankPy/
 
 ---
 
-
 ## 💬 Feedbacks
 
 Caso encontre algum bug ou tenha sugestões de melhorias, fique à vontade para abrir uma issue ou entrar em contato.
 
 🤝 Todo feedback é importante para a evolução do projeto e para meu aprendizado como desenvolvedor.
-
-```
-```
