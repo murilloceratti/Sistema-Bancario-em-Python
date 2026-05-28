@@ -1,5 +1,5 @@
 import random, time, os
-from senha import hashSenha
+from senha import hashSenha, verificarSenha
 from menu_conta import menuConta
 from operacoes import limpar, aguardarLimpar
 from colorama import Fore, Style, init
@@ -11,34 +11,83 @@ transferencias = {}
 
 while True:
     try:
-        escolha = int(input('Seja Bem-Vindo ao BankPy\nEscolha uma opção para prosseguir:\n[1] Acessar conta\n[2] Abrir conta\n'))
+        print(Fore.LIGHTGREEN_EX + """ 
+██████╗  █████╗ ███╗   ██╗██╗  ██╗   ██████╗ ██╗   ██╗
+██╔══██╗██╔══██╗████╗  ██║██║ ██╔╝   ██╔══██╗╚██╗ ██╔╝
+██████╔╝███████║██╔██╗ ██║█████╔╝    ██████╔╝ ╚████╔╝ 
+██╔══██╗██╔══██║██║╚██╗██║██╔═██╗    ██╔═══╝   ╚██╔╝  
+██████╔╝██║  ██║██║ ╚████║██║  ██╗██╗██║        ██║   
+╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝╚═╝        ╚═╝ """)
+        escolha = int(input('Escolha uma opção para prosseguir:\n[1] Acessar conta\n[2] Abrir conta\n'))
 
         if escolha == 1:
             limpar()
-            conta = int(input('Insira o número da sua conta: '))
+            loginEscolha = int(input('[1] Login\n[2] Esqueci minha senha\n'))
+            if loginEscolha == 1:
+                limpar()
+                conta = int(input('Insira o número da sua conta: '))
 
-            if conta in usuarios:
+                if conta in usuarios:
+                    cpf = input('CPF: ')
+                    senha = input('Senha: ')
+
+                    if usuarios[conta]['cpf'] == cpf and verificarSenha(usuarios[conta]['senha'], senha): 
+                        limpar()
+                        menuConta(usuarios, conta, transferencias)
+                    else:
+                        print('Dados incorretos.')
+                        aguardarLimpar()
+                else:
+                    print('Conta inexistente.')
+                    aguardarLimpar()
+            
+            elif loginEscolha == 2:
+                limpar()
+                conta = int(input('Recuperação de senha\nConta: '))
                 cpf = input('CPF: ')
-                senha = input('Senha: ')
-
-                hash_senha = hashSenha(senha)
-
-                if usuarios[conta]['cpf'] == cpf and hash_senha == usuarios[conta]['senha']:
-                    limpar()
-                    menuConta(nome, sobrenome, cpf, conta, senha, usuarios, transferencias)
+                limpar()
+                if conta in usuarios and usuarios[conta]['cpf'] == cpf:
+                    while True:
+                        senhaNova =  input('Insira uma nova senha: ')
+                        senhaNova2 = input('Insira novamente: ')
+                        if senhaNova == senhaNova2:
+                            usuarios[conta]['senha'] = hashSenha(senhaNova)
+                            print('Sua senha foi redefinida com sucesso.')
+                            aguardarLimpar()
+                            break
+                        else:
+                            print('Senhas diferentes.\nPor favor, tente novamente.')
+                            aguardarLimpar()
                 else:
                     print('Dados incorretos.')
                     aguardarLimpar()
-            else:
-                print('Conta inexistente.')
-                aguardarLimpar()
+
 
 
         elif escolha == 2:
             limpar()
             nome = input('Para abrir sua conta, iremos pedir alguns dados.\nNome: ')
             sobrenome = input('Sobrenome: ')
-            cpf = input('CPF: ')
+
+            while True:
+
+                cpf = input('CPF: ')
+
+                cpfExiste = False
+
+                for dadosCPF in usuarios.values():
+
+                    if cpf == dadosCPF['cpf']:
+                        cpfExiste = True
+                        break
+
+                if cpfExiste:
+                    print('Esse CPF já foi cadastrado.')
+                    aguardarLimpar()
+
+                else:
+                    break
+
             senha = input('Senha: ')
 
             senha = hashSenha(senha)
@@ -54,7 +103,8 @@ while True:
                 'cpf' : cpf,
                 'senha' : senha,
                 'saldo' : 0,
-                'contanova' : True
+                'contanova' : True,
+                'chave' : ''
             }
 
             limpar()
