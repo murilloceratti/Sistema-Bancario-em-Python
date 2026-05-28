@@ -57,13 +57,10 @@ O projeto foi desenvolvido para praticar:
 ```bash
 BankPy/
 │
-├── main.py
-├── usuarios.py
+├── menu_login.py
 ├── operacoes.py
 ├── menu_conta.py
-├── senha.py
-├── transferencia.py
-└── ...
+└── senha.py
 ````
 
 ---
