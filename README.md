@@ -1,4 +1,3 @@
-````md
 # 🏦 BankPy
 
 Sistema bancário desenvolvido em Python com funcionamento totalmente no terminal, criado com foco em aprendizado prático de programação, estruturação de projetos, autenticação de usuários e segurança de dados.
