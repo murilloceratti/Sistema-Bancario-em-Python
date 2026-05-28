@@ -12,45 +12,87 @@ def gerarIdTransacao(transferencias):
 
     return IdTransacao
 
+def localizarChave(usuarios, chave):
+    for numeroConta, chaves in usuarios.items():
+        if chaves.get('chave') == chave:
+            return numeroConta
+
 def transferencia(usuarios,conta,transferencias):
     try:
-        destinatario = int(input('Insira a conta do destinatário: '))
+        escolha = int(input('Escola uma opção para prosseguir:\n[1] Realizar transferência\n[2] Cadastrar chave personalizada\n'))
 
-        if destinatario in usuarios:
-            print(f'Nome: {usuarios[destinatario]["nome"]}\nCPF: {usuarios[destinatario]["cpf"]}')
-            valor = int(input('Valor: '))
+        if escolha == 1:
+            limpar()
+            destinatario = input('Insira a conta do destinatário ou chave: ')
 
-            if valor > 0:
+            if destinatario.isdigit():
+                destinatario = int(destinatario)
+            else:
+                destinatario = localizarChave(usuarios, destinatario)
 
-                if valor <= usuarios[conta]['saldo']:
+            if destinatario in usuarios:
+                print(f'Nome: {usuarios[destinatario]["nome"]}\nCPF: {usuarios[destinatario]["cpf"]}')
+                valor = float(input('Valor: '))
 
-                    usuarios[conta]['saldo'] -= valor
-                    usuarios[destinatario]['saldo'] += valor
+                if valor > 0:
 
-                    idTransacao = gerarIdTransacao(transferencias)
+                    if valor <= usuarios[conta]['saldo']:
 
-                    if conta not in transferencias:
-                        transferencias[conta] = {}
+                        usuarios[conta]['saldo'] -= valor
+                        usuarios[destinatario]['saldo'] += valor
 
-                    transferencias[conta][idTransacao] = {
-                        'id' : idTransacao,
-                        'remetente' : usuarios[conta]['nome'],
-                        'destinatário': usuarios[destinatario]['nome'],
-                        'valor' : valor,
-                        'horário' : datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-                    }
+                        idTransacao = gerarIdTransacao(transferencias)
 
-                    print(Fore.GREEN + f'Transferência no valor de R${valor} para {usuarios[destinatario]["nome"]} realizada com sucesso!')
-                    aguardarLimpar()
+                        if conta not in transferencias:
+                            transferencias[conta] = {}
+
+                        transferencias[conta][idTransacao] = {
+                            'id' : idTransacao,
+                            'remetente' : usuarios[conta]['nome'],
+                            'destinatário': usuarios[destinatario]['nome'],
+                            'valor' : valor,
+                            'horário' : datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+                        }
+
+                        print(Fore.GREEN + f'Transferência no valor de R${valor} para {usuarios[destinatario]["nome"]} realizada com sucesso!')
+                        aguardarLimpar()
+                    else:
+                        print('Saldo insuficiente.')
+                        aguardarLimpar()
                 else:
-                    print('Saldo insuficiente.')
+                    print('O valor deve ser maior que 0.')
                     aguardarLimpar()
             else:
-                print('O valor deve ser maior que 0.')
+                print('Usuário não encontrado')
                 aguardarLimpar()
-        else:
-            print('Usuário não encontrado')
-            aguardarLimpar()
+        
+        elif escolha == 2:
+            limpar()
+            while True:
+
+                chaveExiste = False
+
+                if usuarios[conta]['chave'] != '':
+                    print(usuarios[conta]['chave'])
+
+                chavePersonalizada = input('Insira sua nova chave de pagamento personalizada: ')
+
+                for chaves in usuarios.values():
+
+                    if chaves.get('chave') == chavePersonalizada:
+                        chaveExiste = True
+                        break
+                
+                if chaveExiste:
+                    print('Essa chave já está em uso.')
+                    aguardarLimpar()
+                        
+
+                else:
+                    usuarios[conta]['chave'] = chavePersonalizada
+                    print(f'Chave "{chavePersonalizada}" adicionada com sucesso.')
+                    aguardarLimpar()
+                    break
 
     except ValueError:
         print('Insira um valor válido')
@@ -58,7 +100,7 @@ def transferencia(usuarios,conta,transferencias):
 
 def saque(usuarios,conta):
     try:
-        valor = int(input(f'Insira o valor que você deseja sacar: '))
+        valor = float(input(f'Insira o valor que você deseja sacar: '))
 
         if valor > 0:
 
@@ -80,7 +122,7 @@ def saque(usuarios,conta):
 
 def deposito(usuarios,conta):
     try:
-        valor = int(input(f'Insira o valor que você deseja depositar: '))
+        valor = float(input(f'Insira o valor que você deseja depositar: '))
 
         if valor > 0:
 
