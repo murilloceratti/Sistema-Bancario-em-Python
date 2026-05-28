@@ -3,7 +3,7 @@ from operacoes import transferencia, saque, deposito, extrato, aguardarLimpar, l
 from colorama import Fore, Style, init
 init(autoreset=True)
 
-def menuConta(nome, sobrenome, cpf, conta, senha, usuarios, transferencias):
+def menuConta(usuarios, conta,transferencias,):
 
     while True:
         try:
@@ -12,11 +12,11 @@ def menuConta(nome, sobrenome, cpf, conta, senha, usuarios, transferencias):
                 usuarios[conta]['saldo'] = 50
                 usuarios[conta]['contanova'] = False
 
-                print(Fore.GREEN + f'Olá, {nome}!\nVocê ganhou um bônus de R$50 em nosso aplicativo!\nO dinheiro já foi adicionado ao seu saldo e está disponível!')
+                print(Fore.GREEN + f'Olá, {usuarios[conta]["nome"]}!\nVocê ganhou um bônus de R$50 em nosso aplicativo!\nO dinheiro já foi adicionado ao seu saldo e está disponível!')
 
                 aguardarLimpar()
             else:
-                print(f'Olá, {nome}\nSaldo: R${usuarios[conta]["saldo"]}\nEscolha uma opção para prosseguir:')
+                print(f'Olá, {usuarios[conta]["nome"]}\nSaldo: R${usuarios[conta]["saldo"]}\nEscolha uma opção para prosseguir:')
                 opcao = int(input('[1] Transferência\n[2] Saque\n[3] Depósito\n[4] Extrato\n[5] Sair\n'))
                 
                 if opcao == 1:
