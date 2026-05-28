@@ -1,72 +1,80 @@
-# Sistema Bancário Simples Desenvolvido em Python 💳
+````md
+# 🏦 BankPy
 
-O objetivo do projeto foi praticar lógica de programação, modularização, autenticação de usuários e manipulação de dados utilizando Python.
+Sistema bancário desenvolvido em Python com funcionamento totalmente no terminal, criado com foco em aprendizado prático de programação, estruturação de projetos, autenticação de usuários e segurança de dados.
 
 ---
 
-# 🚀 Funcionalidades
+## 🎯 Objetivo do Projeto
+
+O projeto foi desenvolvido para praticar:
+
+- 📂 Organização de aplicações maiores
+- 🧩 Modularização de código
+- 🔐 Autenticação de usuários
+- 🛡️ Segurança no armazenamento de senhas
+- ⚠️ Tratamento de erros
+- 💳 Lógica de sistemas bancários
+
+---
+
+## 🚀 Funcionalidades
+
+### 👤 Conta e autenticação
 
 - ✅ Criação de contas
-- ✅ Login de usuários
-- ✅ Hash de senhas com SHA-256
-- ✅ Depósitos
-- ✅ Saques
-- ✅ Transferências entre contas
-- ✅ Extrato bancário
-- ✅ IDs únicos para transações
-- ✅ Bônus de R$50 para novas contas
-- ✅ Interface colorida no terminal
-- ✅ Tratamento de erros com `try/except`
+- 🔑 Login de usuários
+- ♻️ Recuperação de senha
+- 🪪 Verificação de CPF já cadastrado
+- 🔒 Hash de senhas utilizando Argon2
+
+### 💰 Operações bancárias
+
+- 💵 Depósitos
+- 💸 Saques
+- 🔄 Transferências entre contas
+- 🗝️ Chaves personalizadas para transferência
+- 📄 Extrato bancário
+
+### ⚙️ Sistema
+
+- 🆔 IDs únicos para transações
+- 🎨 Interface colorida no terminal
+- 🚨 Tratamento de erros
+- 📁 Organização modular em múltiplos arquivos
 
 ---
 
-# 🛠️ Tecnologias utilizadas
+## 🛠️ Tecnologias utilizadas
 
-- Python
+- 🐍 Python
+- 🔐 Argon2
+- 🎨 Colorama
 
 ---
 
-# 📂 Estrutura do projeto
+## 📂 Estrutura do Projeto
 
 ```bash
 BankPy/
 │
-├── menu_login.py
-├── menu_conta.py
+├── main.py
+├── usuarios.py
 ├── operacoes.py
+├── menu_conta.py
 ├── senha.py
-```
+├── transferencia.py
+└── ...
+````
 
 ---
 
-# ▶️ Como executar
 
-## 1. Clone o repositório
+## 💬 Feedbacks
 
-```bash
-git clone LINK_DO_REPOSITORIO
+Caso encontre algum bug ou tenha sugestões de melhorias, fique à vontade para abrir uma issue ou entrar em contato.
+
+🤝 Todo feedback é importante para a evolução do projeto e para meu aprendizado como desenvolvedor.
+
 ```
-
-## 2. Acesse a pasta do projeto
-
-```bash
-cd BankPy
 ```
-
-## 3. Instale as dependências
-
-```bash
-pip install colorama
-```
-
-## 4. Execute o sistema
-
-```bash
-python menu_login.py
-```
-
----
-
-# 👨‍💻 Autor
-
-Desenvolvido por Murillo Ceratti.
