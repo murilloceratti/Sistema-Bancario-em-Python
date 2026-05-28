@@ -1,10 +1,12 @@
-import hashlib
+from argon2 import PasswordHasher
+
+ph = PasswordHasher()
 
 def hashSenha(senha):
+    return ph.hash(str(senha))
 
-    senha = str(senha)
-
-    senha_bytes = senha.encode('utf-8')
-    
-    hash_objeto = hashlib.sha256(senha_bytes)
-    return hash_objeto.hexdigest()
+def verificarSenha(hashSalvo, senhaDigitada):
+    try:
+        return ph.verify(hashSalvo, str(senhaDigitada))
+    except:
+        return False
